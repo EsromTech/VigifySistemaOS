@@ -2,83 +2,131 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Operacional - Vigify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Acesso Unificado - Vigify</title>
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; color: #1e293b; }
-    .portal-container { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-    .logo-marca { max-height: 80px; margin-bottom: 8px; }
-    .portal-subtitulo { font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; margin-top: 0; margin-bottom: 40px; text-align: center; }
-    .opcoes-grupo { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; max-width: 600px; width: 100%; }
-    .card-opcao { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px 24px; text-align: center; flex: 1; min-width: 250px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); cursor: pointer; transition: all 0.2s ease-in-out; text-decoration: none; color: inherit; }
-    .card-opcao:hover { transform: translateY(-4px); border-color: #6d28d9; box-shadow: 0 10px 15px -3px rgba(109, 40, 217, 0.1); }
-    .card-icon { font-size: 40px; margin-bottom: 16px; display: block; }
-    .card-titulo { font-size: 18px; font-weight: 700; color: #2e0854; margin: 0 0 8px 0; }
-    .card-desc { font-size: 13px; color: #64748b; margin: 0; line-height: 1.4; }
+    .login-portal { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; box-sizing: border-box; }
+    .card-login { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 40px 32px; text-align: center; max-width: 360px; width: 100%; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+    .logo-marca { max-height: 65px; margin: 0 auto 12px auto; display: block; }
+    .subtitulo { margin: 0 0 32px 0; font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; }
+    .campo-grupo { text-align: left; margin-bottom: 20px; }
+    label { display: block; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+    input[type="text"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; background-color: #fff; color: #1e293b; }
+    input:focus { outline: none; border-color: #6d28d9; box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15); }
+    button.btn-entrar { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: background 0.2s; background-color: #6d28d9; color: #fff; margin-top: 8px; }
+    button.btn-entrar:hover { background-color: #5b21b6; }
+    button:disabled { background-color: #94a3b8; cursor: not-allowed; }
     .iframe-container { display: none; width: 100vw; height: 100vh; position: fixed; inset: 0; background: #ffffff; z-index: 100; flex-direction: column; }
     .iframe-header { padding: 12px 24px; background: #2e0854; color: #ffffff; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    .btn-voltar { background: rgba(255,255,255,0.15); color: #ffffff; border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
-    .btn-voltar:hover { background: rgba(255,255,255,0.25); }
+    .btn-sair { background: rgba(255,255,255,0.15); color: #ffffff; border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+    .btn-sair:hover { background: rgba(255,255,255,0.25); }
     iframe { width: 100%; height: 100%; border: none; flex-grow: 1; }
-    footer { text-align: center; padding: 24px; font-size: 12px; color: #94a3b8; }
+    footer { text-align: center; padding: 16px; font-size: 11px; color: #94a3b8; margin-top: 24px; }
   </style>
 </head>
 <body>
 
-  <!-- TELA SELETORA DO PORTAL DE ENTRADA -->
-  <div id="telaPortal" class="portal-container">
-    <img src="https://googleusercontent.com" alt="Logomarca Vigify" class="logo-marca">
-    <p class="portal-subtitulo">Ecossistema de Ordens de Serviço</p>
-    
-    <div class="opcoes-grupo">
-      <!-- Opção 1: Abre o Aplicativo Móvel do Técnico -->
-      <div class="card-opcao" onclick="abrirJanelaSistema('tecnico')">
-        <span class="card-icon">📱</span>
-        <h3 class="card-titulo">Área do Técnico</h3>
-        <p class="card-desc">Acesso restrito para equipe de campo preencher e finalizar ordens agendadas.</p>
+  <!-- TELA DE LOGIN UNIFICADA INTELIGENTE -->
+  <div id="telaPortal" class="login-portal">
+    <div class="card-login">
+      <img src="https://lh3.googleusercontent.com/d/1rv6sjAY7qisJFiGyxjsv17u0k3Rpq2pD" alt="Logomarca Vigify" class="logo-marca">
+      <p class="subtitulo">Acesso ao Sistema</p>
+      
+      <div class="campo-grupo">
+        <label>Usuário de Acesso</label>
+        <input type="text" id="usuario" placeholder="Digite seu usuário">
       </div>
-
-      <!-- Opção 2: Abre o Painel Administrativo do Gestor -->
-      <div class="card-opcao" onclick="abrirJanelaSistema('admin')">
-        <span class="card-icon">💻</span>
-        <h3 class="card-titulo">Painel do Gestor</h3>
-        <p class="card-desc">Controle administrativo para despachar ordens, cadastrar dados e monitorar status.</p>
+      <div class="campo-grupo">
+        <label>Senha</label>
+        <input type="password" id="senha" placeholder="Digite sua senha">
       </div>
+      <button type="button" id="btnAutenticar" class="btn-entrar" onclick="processarLoginUnificado()">Entrar no Sistema</button>
+      
+      <footer>
+        &copy; 2026 Vigify. Todos os direitos reservados.
+      </footer>
     </div>
-
-    <footer>
-      &copy; 2026 Vigify. Todos os direitos reservados.
-    </footer>
   </div>
 
-  <!-- CONTAINER DO IFRAME (JANELA MÁGICA EM TELA CHEIA) -->
+  <!-- PALCO DO SISTEMA (CONTEÚDO DINÂMICO EM TELA CHEIA) -->
   <div id="containerJanela" class="iframe-container">
     <div class="iframe-header">
-      <span style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">VIGIFY SYSTEM</span>
-      <button class="btn-voltar" onclick="fecharJanelaSistema()">⬅ Voltar ao Portal</button>
+      <span style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">VIGIFY OPERATIONAL SYSTEMS</span>
+      <button class="btn-sair" onclick="desconectarEVoltar()">🔒 Desconectar</button>
     </div>
     <iframe id="espelhoSistema" allow="geolocation; camera"></iframe>
   </div>
 
+  <!-- EXECUTA A PONTE DE COMUNICAÇÃO COM O APPS SCRIPT -->
   <script>
-    // DEFINE OS ENDEREÇOS REAIS DO SEU GOOGLE APPS SCRIPT (MANTENHA O LINK DE PRODUÇÃO /exec)
-    const URL_BASE_VIGIFY = 'https://script.google.com/macros/s/AKfycbx6mzBUpV-38koutH0MEH07bhTwU_SDx5L2COmVMv2BURe4z4E8Fn670B9nczy2ToRbUA/exec';
+    // URL DE PRODUÇÃO DO SEU WEB APP (MANTENHA O FINAL /exec PARA OS TÉCNICOS NA RUA)
+    const URL_BASE_APPSCRIPT = 'https://script.google.com/macros/s/AKfycbzTmGFV1toKDexDbS0-3pGvnUjDyyenN0zlKkBz0Tbx/dev';
 
-    function abrirJanelaSistema(tipo) {
-      const iframe = document.getElementById('espelhoSistema');
-      const urlAlvo = tipo === 'admin' ? `${URL_BASE_VIGIFY}?p=admin` : URL_BASE_VIGIFY;
-      
-      iframe.src = urlAlvo;
-      document.getElementById('telaPortal').style.display = 'none';
-      document.getElementById('containerJanela').style.display = 'flex';
+    // Importa dinamicamente a biblioteca oficial do Google para permitir chamadas diretas por JavaScript puro
+    const scriptTag = document.createElement('script');
+    scriptTag.src = URL_BASE_APPSCRIPT.replace('/exec', '/macros/s/') + '/desktop?v=1';
+    document.head.appendChild(scriptTag);
+
+    function processarLoginUnificado() {
+      const user = document.getElementById('usuario').value.trim();
+      const pass = document.getElementById('senha').value.trim();
+      const btn = document.getElementById('btnAutenticar');
+
+      if (!user || !pass) return alert('Por favor, preencha todos os campos.');
+
+      btn.disabled = true;
+      btn.innerText = 'Autenticando credenciais...';
+
+      // Executa a nova função do backend passando os parâmetros digitados
+      google.script.run
+        .withSuccessHandler(function(resposta) {
+          if (resposta.autorizado) {
+            const iframe = document.getElementById('espelhoSistema');
+            
+            // REDIRECIONAMENTO INTELIGENTE: Monta a URL baseada na resposta de nível do Sheets
+            let urlDestino = URL_BASE_APPSCRIPT;
+            if (resposta.nivel === "ADMIN") {
+              urlDestino += '?p=admin';
+            }
+            
+            iframe.src = urlDestino;
+            document.getElementById('telaPortal').style.display = 'none';
+            document.getElementById('containerJanela').style.display = 'flex';
+          } else {
+            alert(resposta.message);
+            btn.disabled = false;
+            btn.innerText = 'Entrar no Sistema';
+          }
+        })
+        .withFailureHandler(function(erro) {
+          alert('Erro crítico na rede: ' + erro.message);
+          btn.disabled = false;
+          btn.innerText = 'Entrar no Sistema';
+        })
+        .verificarLoginUnificado(user, pass);
     }
 
-    function fecharJanelaSistema() {
+    function desconectarEVoltar() {
       const iframe = document.getElementById('espelhoSistema');
-      iframe.src = ''; // Limpa a memória do iframe ao sair
+      iframe.src = ''; // Limpa totalmente o iframe e encerra sessões ativas por segurança
+      
+      document.getElementById('usuario').value = '';
+      document.getElementById('senha').value = '';
+      document.getElementById('btnAutenticar').disabled = false;
+      document.getElementById('btnAutenticar').innerText = 'Entrar no Sistema';
+      
       document.getElementById('containerJanela').style.display = 'none';
       document.getElementById('telaPortal').style.display = 'flex';
     }
+
+    // TRAVA DE SEGURANÇA: Bloqueia clique direito e atalhos de inspeção comuns
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.keyCode === 85)) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
