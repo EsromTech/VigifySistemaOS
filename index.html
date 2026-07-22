@@ -5,30 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Portal Operacional - Vigify</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #1e293b; }
-    .card-redirecionando { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 40px 32px; text-align: center; max-width: 360px; width: 100%; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
-    .logo-marca { max-height: 65px; margin: 0 auto 16px auto; display: block; }
-    .loader { width: 32px; height: 32px; border: 3px solid #f3f3f3; border-top: 3px solid #6d28d9; border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #f1f5f9; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
   </style>
 </head>
 <body>
 
-  <div class="card-redirecionando">
-    <img src="https://lh3.googleusercontent.com/d/1rv6sjAY7qisJFiGyxjsv17u0k3Rpq2pD" alt="Logomarca Vigify" class="logo-marca">
-    <h3 style="color: #2e0854; margin: 0 0 8px 0; font-size: 18px;">Carregando Portal...</h3>
-    <p style="color: #64748b; font-size: 13px; margin: 0;">Conectando ao ambiente seguro de dados.</p>
-    <div class="loader"></div>
-  </div>
+  <!-- O IFRAME FAZ TODO O TRABALHO DENTRO DO SEU SITE SEM MUDAR A URL DO NAVEGADOR -->
+  <iframe src="https://script.google.com/macros/s/AKfycbzTmGFV1toKDexDbS0-3pGvnUjDyyenN0zlKkBz0Tbx/dev" allow="geolocation; camera"></iframe>
 
   <script>
-    // DEFINE O LINK DE DESENVOLVIMENTO NO SEU COMPUTADOR PARA TESTAR (/dev)
-    const URL_SISTEMA_VIGIFY = 'https://script.google.com/macros/s/AKfycbzTmGFV1toKDexDbS0-3pGvnUjDyyenN0zlKkBz0Tbx/dev';
-    
-    window.onload = function() {
-      // Redireciona instantaneamente a tela cheia para o login centralizado do Google
-      window.location.href = URL_SISTEMA_VIGIFY;
-    };
+    // TRAVA DE SEGURANÇA: Dificulta a cópia da URL interna por curiosos
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.keyCode === 85)) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
